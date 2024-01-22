@@ -15,7 +15,7 @@ logger = logging.getLogger('Tydo')
 
 def ingestion(**kwargs):
     '''
-    put data in a database (certain columns) after removing missing values
+    puts data in a database (certain columns) after removing missing values
     '''
 
     file_path = kwargs['file_path']
@@ -45,7 +45,7 @@ def ingestion(**kwargs):
 
 def processing(**kwargs):
     '''
-    calculate some stats mimicing transformation
+    generates the YOB column and calculates some stats mimicking transformation
     '''
     ti = kwargs["ti"]
     table_name = ti.xcom_pull(task_ids="ingestion", key="table_name")
@@ -81,7 +81,7 @@ def processing(**kwargs):
 
 def final(**kwargs):
     '''
-    expose as a csv file
+    exposes the processed data as a new csv file
     '''
     ti = kwargs["ti"]
     table_name = ti.xcom_pull(task_ids="processing", key="table_name")
